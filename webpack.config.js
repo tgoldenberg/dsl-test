@@ -2,11 +2,10 @@
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
-
 module.exports = {
 	module:	{
 		loaders: [
-			{ test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
+			{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
 			{ test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?.*)?$/, loader: 'file-loader' },
 			{ test: /\.json$/, loader: 'json' },
 			{ test: /\.css$/, loader: '!style/url!postcss-loader' },
@@ -17,9 +16,6 @@ module.exports = {
 	},
 	postcss: function(){
 		return [autoprefixer]
-	},
-	resolveLoader: {
-		root: process.cwd() + "/node_modules"
 	},
 	plugins: [
 		new webpack.SourceMapDevToolPlugin({
@@ -32,5 +28,18 @@ module.exports = {
 	debug: true,
 	entry: { app: './app.js' },
 	output: { filename: '[name].bundle.js', path: '/' },
-	context: process.cwd() + '/src/'
+	context: process.cwd() + '/src',
+	devServer: {
+		publicPath: '/',
+		outputPath: '/',
+		filename: 'app.bundle.js',
+		watchOptions: undefined,
+		watchDelay: undefined,
+		contentBase: process.cwd() + '/src',
+		stats: {
+			cached: false,
+			cachedAssets: false,
+			colors: true
+		}
+	}
 };
