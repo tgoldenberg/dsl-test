@@ -7,7 +7,6 @@ module.exports = {
 		loaders: [
 			{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
 			{ test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?.*)?$/, loader: 'file-loader' },
-			{ test: /\.json$/, loader: 'json' },
 			{ test: /\.css$/, loader: '!style/url!postcss-loader' },
 			{ test: /\.less$/, loader: '!style/url!postcss-loader!less' },
 			{ test: /\.jade$/, loader: 'html?removeRedundantAttributes=false!jade-html' },
