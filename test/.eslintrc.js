@@ -1,7 +1,9 @@
 'use strict';
 module.exports = {
-	extends: 'airbnb/base',
 	rules: {
-		indent: [2, 'tab']
+		'padded-blocks': 0
+	},
+	env: {
+		mocha: true
 	}
 };

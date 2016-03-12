@@ -1,12 +1,17 @@
 'use strict';
 
-var sum  = require('../src/a');
-var assert = require('chai').assert;
+const sum = require('../src/a');
+const assert = require('chai').assert;
 
-describe('ObjA', function() {
+describe('ObjA', () => {
 
-	it('should pass a test', function(){
-		var t = sum(5, 6);
+	it('should pass a test', () => {
+		const t = sum(5, 6);
+		assert.equal(t, 11);
+	});
+
+	it('should fail a test', () => {
+		const t = sum(5, 6);
 		assert.equal(t, 11);
 	});
 
