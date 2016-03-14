@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "repository": "jplikesbikes/web-base",
   "scripts": {
+    "serve": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress",
     "test": "./node_modules/eslint/bin/eslint.js src/ test/ && ./node_modules/mocha/bin/mocha --compilers js:babel-register test/**/*.spec.js"
   },
   "dependencies": {},
