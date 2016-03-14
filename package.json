@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "repository": "jplikesbikes/web-base",
   "scripts": {
-    "test": "eslint src/ test/ && mocha --compilers js:babel-register test/**/*.spec.js"
+    "test": "./node_modules/eslint/bin/eslint.js src/ test/ && ./node_modules/mocha/bin/mocha --compilers js:babel-register test/**/*.spec.js"
   },
   "dependencies": {},
   "devDependencies": {
