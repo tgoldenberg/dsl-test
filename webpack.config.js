@@ -6,13 +6,13 @@ module.exports = {
 	module:	{
 		loaders: [
 			{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
-			{ test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?.*)?$/, loader: 'file-loader' },
-			{ test: /\.css$/, loader: 'style!css!postcss' },
-			{ test: /\.less$/, loader: 'style!css!postcss!less' },
-			{ test: /\.tpl\.jade$/, loader: 'html?removeRedundantAttributes=false!jade-html' },
-			{ test: /\.tpl\.html$/, loader: 'html?removeRedundantAttributes=false' },
-			{ test: /[^\.][^t][^p][^l]\.jade$/, loader: 'file?name=[name].html!jade-html' },
-			{ test: /[^\.][^t][^p][^l]\.html$/, loader: 'file?name=[name].[ext]' }
+			{ test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?.*)?$/, loaders: ['file'] },
+			{ test: /\.css$/, loaders: ['style', 'css', 'postcss'] },
+			{ test: /\.less$/, loaders: ['style', 'css', 'postcss', 'less'] },
+			{ test: /\.tpl\.jade$/, loaders: ['html?removeRedundantAttributes=false', 'jade-html'] },
+			{ test: /\.tpl\.html$/, loaders: ['html?removeRedundantAttributes=false'] },
+			{ test: /[^\.][^t][^p][^l]\.jade$/, loaders: ['file?name=[name].html', 'jade-html' ] },
+			{ test: /[^\.][^t][^p][^l]\.html$/, loaders: ['file?name=[name].[ext]'] }
 		]
 	},
 	postcss: function(){
