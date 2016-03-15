@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "repository": "jplikesbikes/web-base",
   "scripts": {
+    "compile": "rm -rf bin && ./node_modules/webpack/bin/webpack.js",
     "serve": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress",
     "test": "./node_modules/eslint/bin/eslint.js src/ test/ && ./node_modules/mocha/bin/mocha --compilers js:babel-register test/**/*.spec.js",
     "test-web": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js \"mocha!../test/allTests.js\" --target web --output-file test.bundle.js"
@@ -20,6 +21,7 @@
     "eslint-config-airbnb": "^6.1.0",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
+    "jade-html-loader": "0.0.3",
     "less": "^2.6.1",
     "less-loader": "^2.2.2",
     "mocha": "^2.4.5",
