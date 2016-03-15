@@ -29,7 +29,7 @@ module.exports = {
 		})
 	],
 	debug: true,
-	entry: { app: './app.js', index: './index.html' },
+	entry: { app: './app.js', index: './index.jade' },
 	output: { filename: '[name].bundle.js', path: './bin/' },
 	context: process.cwd() + '/src',
 	devServer: {
