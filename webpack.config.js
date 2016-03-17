@@ -1,6 +1,7 @@
 'use strict';
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
+var path = require('path');
 
 module.exports = {
 	module:	{
@@ -30,15 +31,18 @@ module.exports = {
 	],
 	debug: true,
 	entry: { app: './app.js', index: './index.jade' },
-	output: { filename: '[name].bundle.js', path: './bin/' },
-	context: process.cwd() + '/src',
+	output: {
+		filename: '[name].bundle.js',
+		path: path.resolve(process.cwd(), 'bin')
+	},
+	context: path.resolve(process.cwd(), 'src'),
 	devServer: {
 		publicPath: '/',
 		outputPath: '/',
 		filename: 'app.bundle.js',
 		watchOptions: undefined,
 		watchDelay: undefined,
-		contentBase: process.cwd() + '/src',
+		contentBase: path.resolve(process.cwd(), 'src'),
 		stats: {
 			cached: false,
 			cachedAssets: false,
