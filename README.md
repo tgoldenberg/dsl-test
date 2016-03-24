@@ -15,6 +15,9 @@ git remote rename orign upstream
 git remote add origin git@github.com:jplikesbikes/newrepos
 git push -u origin master  
 ```
+Update the package.json name and repository.
+Update the readme.
+Your good to go!
 
 ## Develop
 ```
