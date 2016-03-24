@@ -6,8 +6,17 @@ Use this to start other web projects. It gives you a good base to start from inc
 + compiles jade -> html or strings (.tpl) 
 + compiles less -> css adding browser specific prefixes where necessary
 
+## New projects
+First create a new repository on [github](https://github.com/new)
+```
+git clone git@github.com:jplikesbikes/web-base.git newrepos
+cd newrepos
+git remote rename orign upstream
+git remote add origin git@github.com:jplikesbikes/newrepos
+git push -u origin master  
+```
 
-## Setup and develop
+## Develop
 ```
 npm install
 npm test // lint and run tests
