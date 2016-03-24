@@ -10,7 +10,8 @@ Use this to start other web projects. It gives you a good base to start from inc
 ## Setup and develop
 ```
 npm install
-npm test // lint and run tests
+npm test // run tests
+npm run lint // lint and auto fix formatting errors
 npm run test-web //  run tests in browser with webpack-dev-server
 npm run serve // run webpack-dev-server with hot module reloading
 open localhost:8080
