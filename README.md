@@ -29,6 +29,11 @@ npm run serve // run webpack-dev-server with hot module reloading
 open localhost:8080
 ```
 
+Watching Tests
+```
+npm test -- --watch
+```
+
 Compile into `bin`
 ```
 npm run compile
