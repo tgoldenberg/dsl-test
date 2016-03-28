@@ -11,7 +11,7 @@ First create a new repository on [github](https://github.com/new)
 ```
 git clone git@github.com:jplikesbikes/web-base.git newrepos
 cd newrepos
-git remote rename orign upstream
+git remote rename origin upstream
 git remote add origin git@github.com:jplikesbikes/newrepos
 git push -u origin master  
 ```
