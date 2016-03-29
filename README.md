@@ -1,22 +1,31 @@
-# plumber
+# Plumber
 
 ## Goals and spec
-Image a graph of nodes that describes the users intent to transform data in various ways.
-Assume the following 
+Imagine a directed acyclic graph of nodes that describes the user's intent to transform data in various ways.
 
-* We have three types of node
-	+ Data - describes a source of data 
-	+ Join - joins two data sources using a merge strategy
-	+ Filter - filters data
+Assume the following:
 
-* The user is only interested in the results of some of these nodes. 
+* We have three types of nodes
+	+ Data - a table data 
+	+ Join - joins two tables of data using a merge strategy
+	+ Filter - given a table of data filters it and returns a result
 
-* The user can edit, add or remove nodes as they build their process.
+* The user is only interested in the results of certain `Interesting` nodes in the graph. 
+* The user can edit, add or remove nodes as they build their process and want to be notified when the results of an `Interesting` node have changed.
 
+![Graph](https://raw.githubusercontent.com/datavore-labs/plumber/master/graph.png)
+Take the following graph as an example when the user is interested in **Data2** and **Filter2**.  We want the following
 
+* When `Data1` changes we want to execute the parts of the graph necessary to show the new data passed through `Filter2`. 
+* When `Data2` changes we want to execute the parts of the graph necessary to show the new data passed through `Data2` and `Filter2`
+* We never want to execute more that the necessary number of steps to get the user new data
 
-Given a set of possibly connected nodes `G = [a, b, c, ...]` and a subset of output nodes `N = [b, c, ...]` optimally execute the graph and return the mapping of `{ node : result }` in some way
+### Your task
+Write a function (and tests) that given a graph, the set of `interesting` nodes, and a set of changed nodes returns a new graph containing just the operations we need to execute to display the new data.
 
+##### One example
+Given the above graph, with interest in node `Filter2` and a change in `Join` return this graph `[ 'Data1', 'Data2', 'Join', 'Filter2' ]`
+ 
 ## Project setup
 
 ### Node.js
@@ -47,15 +56,4 @@ Start a development server and run the tests in the browser (useful for debuggin
 ```
 npm run test-web
 open localhost:8080/test.bundle // the tests are now running here
-```
-
-Start the development server with the app running
-```
-npm run serve
-open localhost:8080 // your app is now running here
-```
-
-Compile into `bin`
-```
-npm run compile
 ```
