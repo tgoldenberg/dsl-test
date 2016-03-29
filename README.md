@@ -1,37 +1,58 @@
-# web-base
-Use this to start other web projects. It gives you a good base to start from including
-+ has an .editorconfig to enforce typographic style like tabs instead of spaces and no trailing whitespace
-+ uses eslint to enforce javascript coding conventions such as no `var`s perfer arrow functions, etc
-+ compiles es6 using babel and webpack (includes sourcemaps)
-+ compiles jade -> html or strings (.tpl) 
-+ compiles less -> css adding browser specific prefixes where necessary
+# plumber
 
-## New projects
-First create a new repository on [github](https://github.com/new)
-```
-git clone git@github.com:jplikesbikes/web-base.git newrepos
-cd newrepos
-git remote rename origin upstream
-git remote add origin git@github.com:jplikesbikes/newrepos
-git push -u origin master  
-```
-Update the package.json name and repository.
-Update the readme.
-Your good to go!
+## Goals and spec
+Image a graph of nodes that describes the users intent to transform data in various ways.
+Assume the following 
 
-## Develop
+* We have three types of node
+	+ Data - describes a source of data 
+	+ Join - joins two data sources using a merge strategy
+	+ Filter - filters data
+
+* The user is only interested in the results of some of these nodes. 
+
+* The user can edit, add or remove nodes as they build their process.
+
+
+
+Given a set of possibly connected nodes `G = [a, b, c, ...]` and a subset of output nodes `N = [b, c, ...]` optimally execute the graph and return the mapping of `{ node : result }` in some way
+
+## Project setup
+
+### Node.js
++ Install node.js we love using [nvm](https://github.com/creationix/nvm) to mange node versions
++ Install project dependencies `npm install`
++ Run the unit tests to make sure it worked `npm test`
+
+### Webstorm
+If you don't have a favorite editor I suggest webstorm setup as follows
++ Install [webstorm](https://www.jetbrains.com/webstorm/download)
++ Open webstorm and `file > open...` this projects directory
++ Setup es6 - `file > settings > Languages and Frameworks > Javascript` from the dropdown choose `ECMAScript 6`
++ Setup linter - `file > settings` in the search bar type `eslint` in the menu that comes up check the `enable` box at the top
+
+### useful commands
+
+Install the project dependencies
 ```
-npm install
-npm test // run tests
-npm run lint // lint and auto fix formatting errors
-npm run test-web //  run tests in browser with webpack-dev-server
-npm run serve // run webpack-dev-server with hot module reloading
-open localhost:8080
+npm install 
 ```
 
-Watching Tests
+Lint the code and run the tests on the commandline
 ```
-npm test -- --watch
+npm test // lint and run tests
+```
+
+Start a development server and run the tests in the browser (useful for debugging)
+```
+npm run test-web
+open localhost:8080/test.bundle // the tests are now running here
+```
+
+Start the development server with the app running
+```
+npm run serve
+open localhost:8080 // your app is now running here
 ```
 
 Compile into `bin`
