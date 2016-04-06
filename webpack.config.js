@@ -30,7 +30,7 @@ module.exports = {
 		})
 	],
 	debug: true,
-	entry: { app: ['./index.jade', './app.js'] },
+	entry: { app: ['./plumber.js'] },
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(process.cwd(), 'bin')
