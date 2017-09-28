@@ -30,7 +30,7 @@ module.exports = {
 		})
 	],
 	debug: true,
-	entry: { app: ['./plumber.js'] },
+	entry: { app: ['./dsl.js'] },
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(process.cwd(), 'bin')

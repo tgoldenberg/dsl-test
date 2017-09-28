@@ -1,30 +1,93 @@
-# Plumber
+# dsl-test
 
 ## Goals and spec
-Imagine a directed acyclic graph of nodes that describes the user's intent to transform data in various ways.
+An [abstract syntax tree](https://www.wikiwand.com/en/Abstract_syntax_tree) representation of a program is given.
 
-Assume the following:
+Given an AST for a specific language and interest in the result of specific nodes, the task is to generate an optimized plan and execute it, resulting in the interested values.
 
-* We have three types of nodes
-	+ Data - a table data 
-	+ Join - joins two tables of data using a merge strategy
-	+ Filter - given a table of data filters it and returns a result
+### The dsl specification
+The dsl is composed of JavaScript objects.
 
-* The user is only interested in the results of certain `Interesting` nodes in the graph. 
-* The user can edit, add or remove nodes as they build their process and want to be notified when the results of an `Interesting` node have changed.
+The shapes of dsl nodes are: `Block`, `Function`, `Literal`, `Assignment`, `Identifier`, and `Array`.
 
-![Graph](https://raw.githubusercontent.com/datavore-labs/plumber/master/graph.png)
-Take the following graph as an example when the user is interested in **Data2** and **Filter2**.  We want the following
+The documentation and properties of each shape are defined in [`./src/dsl.js`](src/dsl.js).
 
-* When `Data1` changes we want to execute the parts of the graph necessary to show the new data passed through `Filter2`. 
-* When `Data2` changes we want to execute the parts of the graph necessary to show the new data passed through `Data2` and `Filter2`
-* We never want to execute more that the necessary number of steps to get the user new data
+### Execution rules
+A `block` is a unique node in that it defines a `scope`.
++ Every node in a `block`'s `nodes` property falls inside that block's scope.
++ Every binding in a `block`'s `bindings` property is available 
+
+A `scope` is a way of the language to contain assignment definitions and bindings.
+`scopes` have a parent-child relationship, where child scopes inherit from and shadow bindings from parent scopes.
+
+Example:
+```js
+dsl.block({ a: '10', b: -5 }, [
+  dsl.id('a'), // resolves to the string: '10'
+  dsl.id('b'), // resolves to the number: -5
+  dsl.block({ a: 3.141589 }, [
+    dsl.id('a'), // resolves to the number: 3.141589, as this block's bindings shadow the parent
+    dsl.id('b'), // resolves to the number: -5, as this block inheirts from its parent
+  ])
+])
+```
+
+The execution rules for the dsl nodes are:
+* `Block` - If a block itself is executed, only the last line of the block is run.
+* `Assignment` - Can only occur as a direct child of a `block`. Defines a reference-able value, `name` that takes on the result of executing `value`.
+* `Array` - Every element in the `nodes` of an array are executed.
+* `Function` - The callee and args are executed, then the result of the args are applied to the result of the callee.
+* `Literal` - A literal simply returns its own value
+* `Identifier` - An identifier returns the value that is bound to it, defined by the scope it is in.
+
 
 ### Your task
-Write a function (and tests) that given a graph, the set of `interesting` nodes, and a set of changed nodes returns a new graph containing just the operations we need to execute to display the new data.
+Write a function that, given a full AST and interest in the result of a set of nodes, determine an optimal execution path, and execute the result.
+
+Your code will have to deal with:
++ The execution rules of the DSL
++ Handle failure cases gracefully
++ Produce an optimized execution plan given interest
++ Correctly resolve identifiers through scopes
 
 ##### One example
-Given the above graph, with interest in node `Filter2` and a change in `Join` return this graph `[ 'Data1', 'Data2', 'Join', 'Filter2' ]`
+```js
+// NOTE: ids here are for tracking, in reality the ids would be much different!
+
+const ast = dsl.block({
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+}, [
+  // x = 10 + 10, id: 0
+  dsl.assign('x', dsl.fn(dsl.id('+'), [
+    dsl.lit(2), dsl.lit(2)
+  ])),
+  // y = x * x, id: 1
+  dsl.assign('y', dsl.fn(dsl.id('-'), [
+    dsl.id('x'), dsl.lit(5)
+  ])),
+  // dsl block id: 2
+  dsl.block({}, [
+    dsl.assign('x', dsl.lit(25)),
+    dsl.fn(dsl.id('+'), [
+      dsl.id('x'), dsl.id('x')
+    ])
+  ]),
+  // dsl block id: 3
+  dsl.fn(dsl.id('+'), [
+    dsl.id('x') + dsl.id('x')
+  ]),
+]);
+
+// Execute x = 10 + 10 and the last block node (...):
+const results = run(ast, [2, 3]);
+
+// Of note: the y = x * x line should never be run in this execution
+const expected = {
+  '2': 50, // block's x assignment shadows the parent
+  '3': 8, // this node is inside the parent block, and does not see the inner x
+};
+```
  
 ## Project setup
 
