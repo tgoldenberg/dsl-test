@@ -10,22 +10,22 @@ describe('Dsl', () => {
 		}, [
 			// x = 10 + 10, id: 0
 			dsl.assign('x', dsl.fn(dsl.id('+'), [
-				dsl.lit(2), dsl.lit(2)
+				dsl.lit(2), dsl.lit(2),
 			])),
 			// y = x * x, id: 1
 			dsl.assign('y', dsl.fn(dsl.id('-'), [
-				dsl.id('x'), dsl.lit(5)
+				dsl.id('x'), dsl.lit(5),
 			])),
 			// dsl block id: 2
 			dsl.block({}, [
 				dsl.assign('x', dsl.lit(25)),
 				dsl.fn(dsl.id('+'), [
-					dsl.id('x'), dsl.id('x')
-				])
+					dsl.id('x'), dsl.id('x'),
+				]),
 			]),
 			// dsl block id: 3
 			dsl.fn(dsl.id('+'), [
-				dsl.id('x') + dsl.id('x')
+				dsl.id('x') + dsl.id('x'),
 			]),
 		]);
 
@@ -51,24 +51,24 @@ describe('Dsl', () => {
 			dsl.lit(10),
 			// x = 10 + 20
 			dsl.assign('x', dsl.fn(dsl.id('+'), [
-				dsl.lit(10), dsl.lit(20)
+				dsl.lit(10), dsl.lit(20),
 			])),
 			// [10, x, 10 + x]
 			dsl.arr([
 				dsl.lit(10),
 				dsl.id('x'),
 				dsl.fn(dsl.id('+'), [
-					dsl.lit(10), dsl.id('x')
-				])
+					dsl.lit(10), dsl.id('x'),
+				]),
 			]),
 			// ...
 			dsl.block({ x: 25 }, [
 				dsl.assign('y', dsl.lit(2000)),
 				dsl.arr([dsl.lit('NOT RUN')]),
 				dsl.fn(dsl.id('+'), [
-					dsl.id('x'), dsl.id('x')
-				])
-			])
+					dsl.id('x'), dsl.id('x'),
+				]),
+			]),
 		]);
 
 		const results = run(ast, ast.nodes.map(x => x.id));
