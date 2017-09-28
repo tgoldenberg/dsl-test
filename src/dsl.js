@@ -41,7 +41,7 @@ export const makeAssignment = (name, value) => ({ id: ctr++, shape: NodeShape.As
  * Bindings can be referenced by identifiers, and shadowed by assignments.
  *
  * @typedef {DslNode} BlockNode
- * @property {Object<String, Function>} bindings
+ * @property {Object<String, *>} bindings
  * @property {DslNode[]} nodes
  */
 export const makeBlock = (bindings = {}, nodes = []) => ({ id: ctr++, shape: NodeShape.Block, bindings, nodes });
