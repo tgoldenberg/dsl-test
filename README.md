@@ -1,9 +1,11 @@
 # dsl-test
 
-A major part of the datavore application is the ability to represent a data manipulation and analytics process in a way that can be manipulated and reasoned about in different contexts. This is a toy example, exploring ideas in client side execution of an example representation.
+A major part of the Datavore application is the ability to represent a data manipulation and analytics process in a way that can be manipulated and reasoned about in different contexts. This is a toy example, exploring ideas in client side execution of an example representation.
+
+Your mission, if you choose to accept it, is to solve the example problem. The notes below outline the problem structure, expected results, and how to test your solution.
 
 
-## Project Goals and Spec
+## Project goals and spec
 An [abstract syntax tree](https://www.wikiwand.com/en/Abstract_syntax_tree) representation of a program is given.
 
 In the context of an AST, we use "interest" to express desire for output or information about a certain node in the tree. It can be any node -- a leaf, the root, or an intermediary node.
@@ -26,6 +28,8 @@ The dsl is composed of JavaScript objects.
 The shapes of dsl nodes are: `Block`, `Function`, `Literal`, `Assignment`, `Identifier`, and `Array`.
 
 The documentation and properties of each shape are defined in [`./src/dsl.js`](src/dsl.js).
+
+General notes on Javascript syntax are located in [`./docs/syntax.md`](docs/syntax.md).
 
 ### Execution rules
 A `block` is a unique node in that it defines a `scope`.
@@ -57,7 +61,7 @@ The execution rules for the dsl nodes are:
 
 
 ### Your task
-Write a function that, given a full AST and interest in the result of a set of nodes, determine an optimal execution path, and execute the result.
+Write a function that, given a full AST and interest in the result of a set of nodes, determines an optimal execution path and executes the result. Your code must validate against the tests included in this repository (see [Project Setup](#project-setup) below).
 
 Your code will have to deal with:
 + The execution rules of the DSL
@@ -106,6 +110,11 @@ const expected = {
  
 ## Project setup
 
+### General notes
++ All work should be completed in a fork of this repository.
++ Your main function will be written in the [`./src/runner.js`](src/runner.js) file. You may import other files/modules into this file as needed.
++ The task is considered completed when all tests run on the command line with `npm test` pass.
+
 ### Node.js
 + Install node.js we love using [nvm](https://github.com/creationix/nvm) to mange node versions
 + Install project dependencies `npm install`
@@ -118,7 +127,7 @@ If you don't have a favorite editor I suggest webstorm setup as follows
 + Setup es6 - `file > settings > Languages and Frameworks > Javascript` from the dropdown choose `ECMAScript 6`
 + Setup linter - `file > settings` in the search bar type `eslint` in the menu that comes up check the `enable` box at the top
 
-### useful commands
+### Useful commands
 
 Install the project dependencies
 ```
