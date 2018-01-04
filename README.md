@@ -1,9 +1,24 @@
 # dsl-test
 
-## Goals and spec
+A major part of the datavore application is the ability to represent a data manipulation and analytics process in a way that can be manipulated and reasoned about in different contexts. This is a toy example, exploring ideas in client side execution of an example representation.
+
+
+## Project Goals and Spec
 An [abstract syntax tree](https://www.wikiwand.com/en/Abstract_syntax_tree) representation of a program is given.
 
+In the context of an AST, we use "interest" to express desire for output or information about a certain node in the tree. It can be any node -- a leaf, the root, or an intermediary node.
+
 Given an AST for a specific language and interest in the result of specific nodes, the task is to generate an optimized plan and execute it, resulting in the interested values.
+
+
+For example, if we had the expression `2 + 2` which could be represented as:
+```
+  +
+ / \
+2   2
+```
+"Interest" in either `2` node would be the literal value, `2`. Interest in the `+` node itself would be the function associated with `+`, and interest in the entire tree would expect `4` -- the result of "evaluating the subtree" (assuming `+` is `(a, b) => a + b`).
+
 
 ### The dsl specification
 The dsl is composed of JavaScript objects.
