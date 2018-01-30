@@ -6,7 +6,9 @@ describe('Dsl', () => {
 	it('gives correct execution for the readme example', () => {
 		const ast = dsl.block({
 			'+': (a, b) => a + b,
-			'-': (a, b) => a - b,
+			'-': (a, b) => {
+				throw new Exception('This should never run!')
+			},
 		}, [
 			// x = 2 + 2, id: 4
 			dsl.assign('x', dsl.fn(dsl.id('+'), [
@@ -25,7 +27,7 @@ describe('Dsl', () => {
 			]),
 			// dsl block id: 20
 			dsl.fn(dsl.id('+'), [
-				dsl.id('x') + dsl.id('x'),
+				dsl.id('x'), dsl.id('x'),
 			]),
 		]);
 

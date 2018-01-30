@@ -94,7 +94,7 @@ const ast = dsl.block({
   ]),
   // dsl block id: 3
   dsl.fn(dsl.id('+'), [
-    dsl.id('x') + dsl.id('x')
+    dsl.id('x'), dsl.id('x')
   ]),
 ]);
 
